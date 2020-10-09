@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<div  class="jumbotron jumbotron-fluid" style="text-align:center">
+  <div id="mydiv" class="container">
+    <br>
+    <h3 class="display-6"><b>Please choose from the following:</b></h3><br>
+    <form class="form-group" method="post">
+
+
+    <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    {{form.hidden_tag()}}
+
+    <label class="custom-select" for="inputGroupSelect01">{{form.age_group.label}}</label>
+  </div>
+
+  {{form.age_group(class="custom-select" ,id="inputGroupSelect01")}}
+
+</div>
+
+{{form.submit(class="btn btn-secondary btn-lg")}}
+
+<br><br>
+<!-- {%print(result)%} -->
+{%if result%}
+<table class="table table">
+  <thead class=thead-dark>
+    <tr>
+      <th scope="col"<b>Name</b></th>
+      <th scope="col"><b>Prevention</b></th>
+      <th scope="col"><b>Cure</b></th>
+      <th scope="col"><b>Causes</b></th>
+    </tr>
+  </thead>
+  {%for res in result%}
+  <tbody>
+
+    <tr>
+
+      <td>{{res.disease_name}}</td>
+      <td>{{res.prevention}}</td>
+      <td>{{res.cure}}</td>
+      <td>{{res.cause}}</td>
+
+  </tbody>
+{%endfor%}
+</table >
+{%endif%}
+<br>
+<a class="btn btn-primary btn-lg" href="{{url_for('finddoctor')}}" role="button" data-toggle="tooltip" data-placement="top" title="Search doctors near your location">Locate doctors nearby?</a><br><br>
+</form>
+    </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{%if messages%}
+
+<div  class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Well Done!!</strong>{{messages[-1]}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+{%endif%}
+{%endwith%}
+
+<div class="jumbotron jumbotron-fluid" style="text-align: center">
+  <div class="container">
+<form method="POST">
+  {{form.hidden_tag()}}
+{%if result%}
+<div id="mydiv" class="display-6" style="font-size:30px"><b>Here are the Nearest Doctors and their Details<b></div>
+<br>
+
+    <div class="card text-white bg-dark mb-3" style="font-size:20px">
+      <h3 class="card-header" style="text-decoration:underline">Your Nearest Doctor is <b>Dr.{{result.doc_name.upper()}}</b></h3>
+      <div class="card-body">
+        <h5 class="card-title">Hospital: {{result.doc_hospital}}</h5>
+
+        <h5 class="card-title">Doctor Expertice:{{result.doc_type}}</h5>
+
+        <h5 class="card-title">Location:{{result.doc_location}}</h5>
+
+        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Submit Feedback for <b>Dr.{{result.doc_name}}</b></button>
+        {% for error in form.rating.errors %}
+          <p style="color: red;">{{ error }} </p>
+        {% endfor %} -->
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable">
+          View Patient Reviews on Dr.{{result.doc_name}}
+        </button>
+      </div>
+    </div>
+
+
+
+
+<!-- Modal trial -->
+
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Review By {{current_user.username}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card text-white bg-dark mb-3" style="font-size:20px">
+          <div class="card-header"> Review for Dr.{{result.doc_name}}:</div>
+          <div class="card-body">
+            <div class="form-label" style="max-width: 14rem ">{{form.rating.label}}</div>
+            <div style="aria-align:center">{{form.rating(class="form-control",style="max-width: 14rem ")}}</div>
+
+            <br>
+            <h5 class="card-title">{{form.doc_review.label}}</h5>
+
+            <div class="card-text">{{form.doc_review(class="form-control",style="max-width: 14rem ")}}</div><br>
+
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        {{form.submit (class="btn btn-primary")}}
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- End of Modal Trial -->
+
+
+
+
+  <div class="card text-white bg-dark mb-3" style="align:center;font-size:20px;">
+    <div class="card-header">Doctor Review:</div>
+    <div class="card-body">
+      <h5 class="card-title">{{form.rating.label}}</h5>
+      <div style="aria-align:center">{{form.rating(class="form-control",style="max-width: 15rem;align:center")}}</div>
+      {% for error in form.rating.errors %}
+        <h6 style="color: red;">{{ error }} </h6>
+      {% endfor %}
+
+      <br><h5 class="card-title">{{form.doc_review.label}}</h5>
+
+      <div class="card-text">{{form.doc_review(class="form-control")}}</div><br>
+      {{form.submit(class="btn btn-primary")}}
+    </div>
+  </div>
+
+
+
+</form>
+<form method="POST">
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalScrollableTitle">Reviews on Dr.{{result.doc_name}} by various Patients</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+              {%if result1%}
+
+                {%for res in result1%}
+
+                  <div class="card text-white bg-secondary mb-3">
+                    <div class="card-header">
+                        <b>Posted On : {{ res.date.strftime('%Y-%m-%d at  %H:%M:%S')}}</b>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">By : {{res.username.upper()}}</h5>
+                      <p class="card-text">{{res.doc_review}}</p>
+                      <a href="#" class="btn btn-primary">Rating:{{res.rating}}/5</a>
+                    </div>
+                  </div>
+
+                {%endfor%}
+
+              {%else%}
+                <div class="card-header">
+                  <b> No Patient reviews Available!! </b>
+                </div>
+
+              {%endif%}
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+</form>
+{%else%}
+
+<h3 class="display-6">No Information Available about doctors in your location to treat your disease</h3>
+
+{%endif%}
+</div>
+</div>
+
+{% endblock %}

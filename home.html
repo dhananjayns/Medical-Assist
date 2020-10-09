@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="mydiv1" class="umbotron jumbotron-fluid" style="text-align:center">
+  <br>
+  {%if current_user.is_authenticated%}
+  <h1 class="display-4"><b>Hello {{current_user.username}}, Welcome To Med-Assist</b></h1>
+  {%else%}
+  <h1 class="display-4"><b>Hello , Welcome To Med-Assist</b></h1>
+  <h1 class="display-4"><b>Please Login or Register</b></h1>
+  {%endif%}
+  <br>
+  <h1 class="display-8"><b> KEY HIGHLIGHTS<b></h1>
+  <p class="lead"><b>It is a website that provides information about various diseases and other details about them</b></p>
+  <p class="lead"><b>Selecting the symptoms you can easily identify the disease you are suffering from.</b></p>
+  <p class="lead"><b>You can know about the various diseases occuring in different age groups of people</b></p>
+  <p class="lead"><b>Based on the intensity of the disease you are suffering the site recommends doctors of to treat.<br>Doctor selection is based on the type of doctor neede to treat you are disease</b> </p>
+  <p class="lead"><b>Site helps early and easy ways of diagnosing diseases<br> It gives preventive measures and simple cures if available</b></p>
+  <p class="lead"><b>User can review the Doctor who was recommended to him</b></p>
+<a class="btn btn-primary btn-lg" href="{{url_for('welcome_user')}}" role="button"  data-toggle="tooltip" data-placement="top" title="Go to User Home Page">Browse Med-Assist Features?</a>
+
+  <hr class="my-4">
+
+
+  <p><b>Our Organisation has other interests.Do you want to know more?</b></p>
+  <a class="btn btn-primary btn-lg" href="https://gomedassist.com/" role="button"  data-toggle="tooltip" data-placement="top" title="Go to Info Page">Learn more ?</a>
+<br><br></div>
+
+{% endblock %}

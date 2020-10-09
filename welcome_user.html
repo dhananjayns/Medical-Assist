@@ -1,0 +1,149 @@
+{% extends "base1.html" %}
+{% block content %}
+
+
+{% if current_user.is_authenticated %}
+<li class="nav-item"><a class="nav-link" href="{{url_for('symptoms')}}"  data-toggle="tooltip" data-placement="top" title="Go to Symptoms Page">Symptoms</a>
+</li>
+<li class="nav-item"> <a class="nav-link" href="{{url_for('diseases')}}" data-toggle="tooltip" data-placement="top" title="Go to Diseases Page Page">Diseases</a>
+</li>
+
+<li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}" data-toggle="tooltip" data-placement="top" title="Logout User">Log Out</a></li>
+
+
+{% else %}
+
+<li class="nav-item"><a  class="nav-link" href="{{ url_for('login') }}" data-toggle="tooltip" data-placement="top" title="Go to Login Page">Log In</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}" data-toggle="tooltip" data-placement="top" title="Go to Register Page">Register</a></li>
+
+{% endif %}
+
+
+
+
+</ul>
+
+{% if current_user.username=='Admin'%}
+<form class="form-inline my-2 my-lg-0">
+  <!-- Button trigger modal -->
+  <a  class="btn btn-outline-light my-2 my-sm-0" href="{{url_for('admin')}}" role="button" data-toggle="tooltip" data-placement="top" title="Use Admin Privileges">
+    Admin Privileges
+  </a>&nbsp;
+
+</form>
+{% endif %}
+
+
+{% if current_user.is_authenticated %}
+<form class="form-inline my-2 my-lg-0">
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-outline-light my-2 my-sm-0" data-toggle="modal" data-target="#exampleModalScrollable">
+    View History
+  </button>
+
+</form>
+{% endif %}
+
+<!--  <form class="form-inline my-2 my-lg-0">
+  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>-->
+
+</div>
+</nav>
+
+<form method="POST">
+
+
+<!-- Modal -->
+<!-- {%print(mongouser)%} -->
+<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalScrollableTitle">User History</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        {%if mongouser%}
+
+        {%for res in mongouser%}
+
+        <div class="card text-white bg-secondary mb-3">
+          <div class="card-header">
+            <b> Username : {{res['username'].upper()}} </b>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Searched On : {{res['date'].strftime('%Y-%m-%d at %H:%M:%S')}}</h5>
+            <p class="card-text">Identified Disease : {{res['disease_name']}}</p>
+            {%if res['intensity'] in range(1,5)%}
+            <p class="card-text">Disease Intensity : Low</p>
+            {%elif res['intensity'] in range(5,9)%}
+            <p class="card-text">Disease Intensity : High</p>
+            {%elif res['intensity'] in range(9,13)%}
+            <p class="card-text">Disease Intensity : Very High</p>
+            {%elif res['intensity'] in range(13,17)%}
+            <p class="card-text">Disease Intensity : Alarming</p>
+            {%endif%}
+
+          </div>
+        </div>
+
+        {%endfor%}
+
+        {%else%}
+        <div class="card-header">
+          <b> No Past record Available!! </b>
+        </div>
+
+        {%endif%}
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end of modal -->
+</form>
+
+
+{% with messages = get_flashed_messages() %}
+{%if messages%}
+
+<div  class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Welcome {{current_user.username}}!!</strong>{{messages[-1]}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+{%endif%}
+{%endwith%}
+
+<div id="mydiv" class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4"><b>Symptoms</b></h1>
+    <p class="lead">Do you want to find out the disease you are suffering from?</p>
+    <p class="lead">Click below to check out the symptom list!!</p>
+    <a class="btn btn-primary btn-lg" href="{{url_for('symptoms')}}" role="button" data-toggle="tooltip" data-placement="top" title="Go to Symptoms Page">Search Symptoms</a>
+  </div>
+</div>
+<br>
+<div id="mydiv" class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4"><b>Diseases</b></h1>
+    <p class="lead">Do you want to know more about diseases?</p>
+    <p class="lead">Know more about diseases in various age groups</p>
+    <p class="lead">Know more about different types of doctors in your locality</p>
+    <a class="btn btn-primary btn-lg" href="{{url_for('diseases')}}" role="button" data-toggle="tooltip" data-placement="top" title="Go to Disease Page">Disease and Doctors</a>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+{%if messages%}
+
+<div  class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Warning!!</strong>{{messages[-1]}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+{%endif%}
+{%endwith%}
+<br>
+<div id="mydiv" class="container" align="center" style="">
+<div class="jumbotron" style="text-align: center">
+
+<form method="POST">
+  {{form.hidden_tag()}}
+  <br>
+  <strong><i>{{form.read.label}}&emsp;{{form.read}}</i></strong>
+  <br><br>
+  <h2>Please Choose From Following Symptoms</h2><br>
+
+
+
+{{form.c1}}{{form.c1.label }}<br>
+{{form.c2}}{{form.c2.label}}<br>
+{{form.c3}}{{form.c3.label}}<br>
+{{form.c4}}{{form.c4.label}}<br>
+{{form.c5}}{{form.c5.label}}<br>
+{{form.c6}}{{form.c6.label}}<br>
+
+{{form.f1}}{{form.f1.label}}<br>
+{{form.f2}}{{form.f2.label}}<br>
+{{form.f3}}{{form.f3.label}}<br>
+{{form.f4}}{{form.f4.label}}<br>
+{{form.f5}}{{form.f5.label}}<br>
+
+{{form.d1}}{{form.d1.label}}<br>
+{{form.d2}}{{form.d2.label}}<br>
+{{form.d3}}{{form.d3.label}}<br>
+{{form.d4}}{{form.d4.label}}<br>
+{{form.d5}}{{form.d5.label}}<br>
+
+<br>{{form.submit(class="btn btn-secondary")}}<br>
+
+</form>
+</div>
+</div>
+{% endblock %}

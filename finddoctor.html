@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<div  class="jumbotron jumbotron-fluid">
+  <div id="mydiv" class="container" style="text-align:center">
+    <form class="form-group"  method="post">
+<br>
+    <h3  class="display-6"><b>Please choose from the following:</b></h3><br>
+    <div class="input-group mb-3">
+  <div class="input-group-prepend">
+
+    {{form.hidden_tag()}}
+    <label class="custom-select" for="inputGroupSelect01">{{form.doc_type.label}}</label>
+  </div>
+
+  {{form.doc_type(class="custom-select" ,id="inputGroupSelect01")}}
+
+</div>
+<br>
+{{form.submit(class="btn btn-secondary btn-lg")}}
+<br><br>
+{%if result%}
+<table class="table table">
+  <thead class=thead-dark>
+    <tr>
+      <th scope="col"<b>Name</b></th>
+      <th scope="col"><b>Expertice:</b></th>
+      <th scope="col"><b>Location</b></th>
+      <th scope="col"><b>Hospital</b></th>
+    </tr>
+  </thead>
+    {%for res in result%}
+  <tbody>
+    <tr>
+
+      <td><b>Dr.{{res.doc_name}}</b></td>
+      <td>{{res.doc_type}}</td>
+      <td>{{res.doc_location}}</td>
+      <td>{{res.doc_hospital}}</td>
+  </tbody>
+  {%endfor%}
+</table >
+<br>
+{%endif%}
+</form>
+    </div>
+    </div>
+{% endblock %}

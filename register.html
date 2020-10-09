@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+<br>
+<div  class="container" align="center">
+
+  <div class="jumbotron" id="mydiv" style="text-align: center;border-color: black;
+  border-style: solid;max-width: 25rem;
+  border-width: 2px;padding:20px;">
+    <form class="form-group" style="text-align: center" method="POST" >
+        {# This hidden_tag is a CSRF security feature. #}
+        {{ form.hidden_tag() }}
+        <h2>MED-ASSIST</h2>
+        <h3>REGISTER</h3>  <br>
+             {{ form.email.label }}
+        <br> {{ form.email(class="form-control") }}
+        <ul>
+      {% for error in form.email.errors %}
+        <li style="color: red;">{{ error }} </li>
+      {% endfor %}
+      </ul>
+           {{ form.username.label }}
+        <br> {{ form.username(class="form-control") }}
+        <ul>
+      {% for error in form.username.errors %}
+        <li style="color: red;">{{ error }} </li>
+      {% endfor %}
+      </ul>
+           {{ form.password.label }}
+        <br> {{ form.password(class="form-control") }}
+        <ul>
+      {% for error in form.password.errors %}
+        <li style="color: red;">{{ error }} </li>
+      {% endfor %}
+      </ul>
+           {{ form.pass_confirm.label }}
+        <br> {{ form.pass_confirm(class="form-control") }}
+        <ul>
+      {% for error in form.pass_confirm.errors %}
+        <li style="color: red;">{{ error }} </li>
+      {% endfor %}
+      </ul>
+
+          {{ form.location.label }}
+
+      <br> {{ form.location(class="form-control") }}
+      <ul>
+    {% for error in form.location.errors %}
+      <li style="color: red;">{{ error }} </li>
+    {% endfor %}
+    </ul>
+
+        <br>{{ form.submit (class="btn btn-secondary btn-lg btn-block") }}
+
+    </form>
+  </div>
+</div>
+
+{% endblock %}

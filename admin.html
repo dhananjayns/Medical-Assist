@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{%if messages%}
+
+<div  class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong> {{current_user.username}} your request has been completed!!</strong>{{messages[-1]}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+{%endif%}
+{%endwith%}
+
+<div  class="container"  align="center">
+  <h2>Admin Privileges</h2><br>
+  <div class="jumbotron" id="mydiv" style="text-align: center;border-color: black;
+  border-style: solid;max-width: 45rem;
+  border-width: 2px;padding:20px;">
+    <form class="form-group" style="text-align: center" method="POST" >
+  {{form.hidden_tag()}}
+
+  <h3>Enter doctor details:</h3>  <br>
+
+     {{ form.doc_name.label }}
+  <br> {{ form.doc_name(class="form-control") }}
+  <ul>
+{% for error in form.doc_name.errors %}
+  <li style="color: red;">{{ error }} </li>
+{% endfor %}
+</ul>
+
+{{ form.doc_type.label }}
+
+<br> {{ form.doc_type(class="form-control") }}
+<ul>
+{% for error in form.doc_type.errors %}
+<li style="color: red;">{{ error }} </li>
+{% endfor %}
+</ul>
+
+    {{ form.doc_location.label }}
+
+<br> {{ form.doc_location(class="form-control") }}
+<ul>
+{% for error in form.doc_location.errors %}
+<li style="color: red;">{{ error }} </li>
+{% endfor %}
+</ul>
+
+{{ form.doc_hospital.label }}
+<br> {{ form.doc_hospital(class="form-control") }}
+<ul>
+{% for error in form.doc_hospital.errors %}
+<li style="color: red;">{{ error }} </li>
+{% endfor %}
+</ul>
+
+  <br>{{ form.submit (class="btn btn-secondary btn-lg btn-block") }}
+
+</form>
+</div>
+
+
+<div class="jumbotron" id="mydiv" style="text-align: center;border-color: black;
+border-style: solid;max-width: 45rem;
+border-width: 2px;padding:20px;">
+  <form class="form-group" style="text-align: center" method="POST" >
+{{form1.hidden_tag()}}
+  <h3>Enter Disease details:</h3>  <br>
+{{ form1.disease_name.label }}
+
+<br> {{ form1.disease_name(class="form-control") }}
+<ul>
+{% for error in form1.disease_name.errors %}
+<li style="color: red;">{{ error }} </li>
+{% endfor %}
+</ul>
+
+{{ form1.prevention.label }}
+
+<br> {{ form1.prevention(class="form-control") }}
+<ul>
+{% for error in form1.prevention.errors %}
+<li style="color: red;">{{ error }} </li>
+{% endfor %}
+</ul>
+
+{{ form1.cause.label }}
+
+<br> {{ form1.cause(class="form-control") }}
+<ul>
+{% for error in form1.cause.errors %}
+<li style="color: red;">{{ error }} </li>
+{% endfor %}
+</ul>
+
+{{ form1.cure.label }}
+
+<br> {{ form1.cure(class="form-control") }}
+<ul>
+{% for error in form1.cure.errors %}
+<li style="color: red;">{{ error }} </li>
+{% endfor %}
+</ul>
+
+  {{ form1.doc_type.label }}
+
+<br> {{ form1.doc_type(class="form-control") }}
+<ul>
+{% for error in form1.doc_type.errors %}
+<li style="color: red;">{{ error }} </li>
+{% endfor %}
+</ul>
+
+{{ form1.age_group.label }}
+<br> {{ form1.age_group(class="form-control") }}
+<ul>
+{% for error in form1.age_group.errors %}
+<li style="color: red;">{{ error }} </li>
+{% endfor %}
+</ul>
+
+<br>{{ form.submit (class="btn btn-secondary btn-lg btn-block") }}
+
+</form>
+</div>
+
+</div>
+
+{% endblock %}

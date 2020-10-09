@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="jumbotron jumbotron-fluid" style="text-align: center">
+  <div class="container">
+
+{%if status=="Be Alert"%}
+  <div  id="mydiv" class="alert alert-success" role="alert">
+    <h3>Your Health Status : <b>{{status}}</b></h3>
+    <h3>Health Deterioration:<b>{{health}}%</b></h3>
+    <div class="progress">
+  <div class="progress-bar progress-bar-striped progress-bar-animated  bg-success" role="progressbar" aria-valuenow="{{health}}" aria-valuemin="0" aria-valuemax="100" style="width: {{health}}%" ><small>{{status}}</small></div>
+</div><br>
+  </div>
+
+  {%elif status=="Not Satisfactory" or status=="Average" %}
+  <div  id="mydiv" class="alert alert-info" role="alert">
+    <h3>Your Health Status : <b>{{status}}</b></h3>
+    <h3>Health Deterioration:<b>{{health}}%</b></h3>
+    <div class="progress">
+  <div class="progress-bar progress-bar-striped progress-bar-animated  bg-info" role="progressbar" aria-valuenow="{{health}}" aria-valuemin="0" aria-valuemax="100" style="width: {{health}}%"><small>{{status}}</small></div>
+</div><br>
+  </div>
+
+  {%elif status=="Bad" or status=="Very Bad" %}
+  <div  id="mydiv" class="alert alert-warning" role="alert">
+    <h3>Your Health Status : <b>{{status}}</b></h3>
+    <h3>Health Deterioration:<b>{{health}}%</b></h3>
+    <div class="progress">
+  <div class="progress-bar progress-bar-striped progress-bar-animated  bg-warning" role="progressbar" aria-valuenow="{{health}}" aria-valuemin="0" aria-valuemax="100" style="width:  {{health}}%"><small>{{status}}</small></div>
+</div><br>
+  </div>
+  {%elif status=="Extremely Dangerous" or status=="Alarming" %}
+  <div  id="mydiv" class="alert alert-danger" role="alert">
+    <h3>Your Health Status : <b>{{status}}</b></h3>
+    <h3>Health Deterioration:<b>{{health}}%</b></h3>
+    <div class="progress">
+  <div class="progress-bar progress-bar-striped progress-bar-animated  bg-danger" role="progressbar" aria-valuenow=" {{health}}" aria-valuemin="0" aria-valuemax="100" style="width:  {{health}}%"><small>{{status}}</small></div>
+</div><br>
+  </div>
+
+  {%endif%}
+
+
+  <form method="POST">
+    <div class="card text-white bg-info mb-3" style="font-size:20px">
+    <h4 class="card-header"><b>Disease Details : </b></h4>
+    <div class="card-body">
+      <h5 class="card-title"><b>Identified disease is {{result.disease_name.upper()}}</b></h5>
+      <p class="card-text"><b>Prevention:</b><br>{{result.prevention}}</p>
+      <p class="card-text"><b>Causes:</b><br>{{result.cause}}</p>
+
+    </div>
+  </div>
+  <div class="card bg-light mb-3" style="font-size:20px">
+  <div class="card-header"><b>Here are some Cures</b></div>
+  <div class="card-body">
+
+    <p class="card-text">{{result.cure}}</p>
+  </div>
+</div>
+  </form>
+  {%if total_count>=5%}
+  <h5 class="alert alert-danger" role="alert" style="align:center"><b>
+  Immediate Attention Required!!!A visit to a Expert Doctor Recommended<br>
+  Preferably a {{result.doc_type.upper()}}</b><br><br>
+  <a class="btn btn-danger" href="{{url_for('doctors')}}" role="button" data-toggle="tooltip" data-placement="top" title="Search doctors near your location">Locate doctors nearby?</a>
+</h5>
+  {%elif max_count>=3%}
+  <h5 class="alert alert-warning" role="alert"><b>
+    A visit to a Good {{result.doc_type.upper()}} Recommended</b><br><br>
+
+  <a class="btn btn-warning" href="{{url_for('doctors')}}" role="button" data-toggle="tooltip" data-placement="top" title="Search doctors near your location">Locate doctors nearby?</a>
+</h5>
+{%endif%}
+</div>
+</div>
+
+{% endblock %}
